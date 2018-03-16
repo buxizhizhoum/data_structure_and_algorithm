@@ -1,5 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+"""
+binary search
+"""
 
 
 def binary_search(alist, item):
