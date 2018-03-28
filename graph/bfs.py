@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from queue import Queue
+# from queue import Queue
+from Queue import Queue
 from graph import Vertex
 from word_ledder import build_graph
 
