@@ -50,6 +50,9 @@ class Stack(object):
         self._data = []
         self.length = length
 
+    def __len__(self):
+        return len(self._data)
+
     def size(self):
         """
         get the size of stack
