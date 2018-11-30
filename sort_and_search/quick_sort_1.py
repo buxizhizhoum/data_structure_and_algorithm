@@ -12,10 +12,12 @@ def quick_sort(data, left, right):
     # choose the first element to split list, there could be other choices
     tmp = data[left]
     while left < right:
+        # find item that is left than tmp and move to left
         while left < right and data[right] >= tmp:
             right -= 1
         data[left] = data[right]
 
+        # find item that is larger than tmp and move to right
         while left < right and data[left] <= tmp:
             left += 1
         data[right] = data[left]
