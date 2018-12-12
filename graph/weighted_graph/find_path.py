@@ -15,6 +15,7 @@ find path between 2 nodes in graph
         / /     \  /      \ \ |
         4--------5-----------3
 """
+from __future__ import print_function
 
 
 class Path(object):
@@ -82,8 +83,10 @@ class Path(object):
         if not paths:
             return
 
-        for item in paths:
-            print(item)
+        print(paths, sep="->")
+        # for item in paths:
+        #     print(item, end="->")
+
 
 
 if __name__ == "__main__":
