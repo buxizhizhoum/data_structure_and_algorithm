@@ -18,6 +18,10 @@ class ShortestPath(object):
         self.order = {}  # cache the visit order of a node {node_id: 1}
 
     def find_path(self):
+        """
+        find shortest paths from self.start
+        :return:
+        """
         self.bfs(self.start)
 
     def bfs(self, node):
