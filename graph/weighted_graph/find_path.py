@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 """
-find path between 2 nodes in graph
+find path between 2 nodes in graph with dfs
 
 
             0-------------------6
