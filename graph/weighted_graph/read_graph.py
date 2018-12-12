@@ -1,5 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+"""
+read a graph from a file
+"""
 from sparse_graph import SparseGraph as Graph
 
 
@@ -21,3 +24,5 @@ def read_graph(fullname):
 if __name__ == "__main__":
     filename = "/home/buxizhizhoum/1-Work/2-Codes/algorithm/graph/weighted_graph/test_graph.txt"
     read_graph(filename)
+
+
