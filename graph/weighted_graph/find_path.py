@@ -88,7 +88,6 @@ class Path(object):
         #     print(item, end="->")
 
 
-
 if __name__ == "__main__":
     from read_graph import read_graph
 
