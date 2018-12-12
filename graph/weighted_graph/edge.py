@@ -20,7 +20,8 @@ class Edge(object):
 
     def node_from(self):
         """
-        return one node of current edge
+        return one node of current edge,
+        when it is not directed graph, from and to is meanless
         :return:
         """
         return self.a
