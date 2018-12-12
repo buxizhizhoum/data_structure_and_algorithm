@@ -15,6 +15,7 @@ def read_graph(fullname):
         graph.add_edge(int(node_from), int(node_to), float(weight))
 
     graph.show()
+    return graph
 
 
 if __name__ == "__main__":
