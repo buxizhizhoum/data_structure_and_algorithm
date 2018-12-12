@@ -15,7 +15,7 @@ class DenseGraph(object):
         self.m = 0  # edge number
         self.directed = directed
         # when an edge is described by a obj, initialize it to None
-        self.matrix = [[None for i in range(n)] for j in range(n)]
+        self.graph = [[None for i in range(n)] for j in range(n)]
 
     def add_edge(self, i, j, w):
         """
@@ -29,22 +29,22 @@ class DenseGraph(object):
             if self.has_edge(i, j):
                 # if there is already edge, set it to None and decr m by 1
                 # todo: be careful to maintain m when there is already a edge
-                self.matrix[i][j] = None
+                self.graph[i][j] = None
                 if not self.directed:
-                    self.matrix[j][i] = None
+                    self.graph[j][i] = None
 
                 self.m -= 1
             # add edge
-            self.matrix[i][j] = Edge(i, j, w)
+            self.graph[i][j] = Edge(i, j, w)
             if self.directed is False:
-                self.matrix[j][i] = Edge(j, i, w)
+                self.graph[j][i] = Edge(j, i, w)
             self.m += 1  # update edge number
         else:
             raise ValueError("The given two nodes is illegal")
 
     def has_edge(self, i, j):
         if 0 <= i < self.n and 0 <= j < self.n:
-            return self.matrix[i][j] is not None
+            return self.graph[i][j] is not None
         raise ValueError("The given two nodes is illegal")
 
     def edge_count(self):
@@ -57,10 +57,10 @@ class DenseGraph(object):
         for i in range(self.n):
             for j in range(self.n):
                 # show weight if edge
-                if not self.matrix[i][j]:
+                if not self.graph[i][j]:
                     w = None
                 else:
-                    w = "{:.2}".format(self.matrix[i][j].w)
+                    w = "{:.2}".format(self.graph[i][j].w)
                 print(w, end=" ")
             print("\n")
 
