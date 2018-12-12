@@ -18,14 +18,14 @@ class Edge(object):
         """
         return self.w
 
-    def a(self):
+    def node_from(self):
         """
         return one node of current edge
         :return:
         """
         return self.a
 
-    def b(self):
+    def node_to(self):
         """
         return one node
         :return:
