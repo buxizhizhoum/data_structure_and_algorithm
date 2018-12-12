@@ -13,7 +13,7 @@ class DenseGraph(object):
         self.n = n  # vertex number
         self.m = 0  # edge number
         self.directed = directed
-        self.matrix = [[0 for i in range(n)] for j in range(n)]
+        self.graph = [[0 for i in range(n)] for j in range(n)]
 
     def add_edge(self, i, j):
         if 0 <= i < self.n and 0 <= j < self.n:
@@ -21,16 +21,16 @@ class DenseGraph(object):
                 # if there is already edge, return
                 return
             # add edge only when there is no edge
-            self.matrix[i][j] = 1
+            self.graph[i][j] = 1
             if self.directed is False:
-                self.matrix[j][i] = 1
+                self.graph[j][i] = 1
             self.m += 1  # update edge number
         else:
             raise ValueError("The given two nodes is illegal")
 
     def has_edge(self, i, j):
         if 0 <= i < self.n and 0 <= j < self.n:
-            return self.matrix[i][j]
+            return self.graph[i][j]
         raise ValueError("The given two nodes is illegal")
 
     def edge_count(self):
@@ -42,7 +42,7 @@ class DenseGraph(object):
     def show(self):
         for i in range(self.n):
             for j in range(self.n):
-                print(self.matrix[i][j], end=" ")
+                print(self.graph[i][j], end=" ")
             print("\n")
 
 
