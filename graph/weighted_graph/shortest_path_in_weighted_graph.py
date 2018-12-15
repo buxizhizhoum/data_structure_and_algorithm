@@ -20,6 +20,12 @@ class ShortestPath(object):
         return self.bfs_dj(self.graph.graph, self.start)
 
     def bfs_dj(self, graph, start):
+        """
+        迪杰斯塔拉算法
+        :param graph:
+        :param start:
+        :return:
+        """
         queue = Queue()
 
         queue.put(start)
