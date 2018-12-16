@@ -1,5 +1,15 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+"""
+max heap, the heap is stored in list, and the first element is starting from 0
+
+for a element, if its index is i:
+    the left child is 2*i,
+    the right child is 2*i + 1
+
+for a node whose index is i:
+    the parent's index is (i-1)//2
+"""
 
 
 class MaxHeap(object):
@@ -7,21 +17,44 @@ class MaxHeap(object):
         self.heap = []
 
     def size(self):
+        """
+        return size of heap
+        :return:
+        """
         return len(self.heap)
 
     def empty(self):
+        """
+        check whether a heap is empty or not
+        :return:
+        """
         return self.size() == 0
 
     def parent(self, index):
+        """
+        return parent index of an index
+        :param index:
+        :return:
+        """
         if index == 0:
             print("index 0 has no parent")
             return None
         return (index - 1) // 2
 
     def left_child(self, index):
+        """
+        return left child of an index
+        :param index:
+        :return:
+        """
         return 2 * index + 1
 
     def right_child(self, index):
+        """
+        return right child of an index
+        :param index:
+        :return:
+        """
         return 2 * index + 2
 
     def put(self, element):
@@ -46,6 +79,7 @@ class MaxHeap(object):
         self.heap[0], self.heap[size - 1] = self.heap[size - 1], self.heap[0]
         self.heap.pop()
         self.sift_down(0)
+        # self.sift_down_recursion(0)
         return res
 
     def peek_up(self):
@@ -106,7 +140,7 @@ class MaxHeap(object):
 
     def sift_down_recursion(self, index):
         """
-        sift down recursion version
+        sift down recursion version, test passed
         :param index:
         :return:
         """
@@ -145,5 +179,6 @@ if __name__ == "__main__":
         max_heap.put(item)
 
     test_res = [max_heap.get() for i in range(max_heap.size())]
+    print(test_res)
     assert test_res == sorted(test_data, reverse=True)
 
