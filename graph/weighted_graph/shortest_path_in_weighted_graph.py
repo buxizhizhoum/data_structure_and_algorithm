@@ -3,7 +3,7 @@
 """
 find shortest path in weighted graph
 """
-from Queue import Queue
+from Queue import PriorityQueue
 
 
 class ShortestPath(object):
@@ -26,22 +26,20 @@ class ShortestPath(object):
         :param start:
         :return:
         """
-        queue = Queue()
-
-        queue.put(start)
+        queue = PriorityQueue()
+        queue.put((0, start))
         self.cost[start] = 0
 
         while not queue.empty():
-            node = queue.get()
+            # get the cheapest node from priority queue
+            _, node = queue.get()
+            
             neighbors = graph[node]  # get node list connected to node
-            # sort neighbors, to ensure the cheapest node is processed first
-            neighbors.sort(key=lambda x: x.w)
-
             for edge in neighbors:
                 _, node_id, node_w = edge.a, edge.b, edge.w
                 # if not processed yet, update cost
                 if not self.processed.get(node_id):
-                    queue.put(node_id)
+                    queue.put((self.cost[node] + node_w, node_id))
                     # update cost if cost is less
                     if self.cost[node] + node_w < self.cost[node_id]:
                         self.cost[node_id] = self.cost[node] + node_w
