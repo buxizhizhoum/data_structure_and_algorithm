@@ -96,7 +96,8 @@ class LazyPrim(object):
         """
         visit a node and put all edges that connected to this edge
         and not be processed yet to pq
-        :param graph:
+
+        add cut edge to pq
         :param node: id of node to visit
         :param pq:
         :param processed:
