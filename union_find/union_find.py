@@ -1,11 +1,16 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+"""
+union find optimized with rank and path compress
+"""
 
 
 class UnionFind(object):
     def __init__(self, size):
         # at beginning, every element point to its self
         self.parent = [i for i in range(size)]
+        # rank[i] means the height of tree which i is in
+        self.rank = [1 for _ in range(size)]
 
     def find(self, p):
         """
@@ -14,9 +19,15 @@ class UnionFind(object):
         :return:
         """
         # continue find parent element until find root
-        while p != self.parent[p]:
-            p = self.parent[p]
-        return p
+        # while p != self.parent[p]:
+        #     p = self.parent[p]
+        # return p
+
+        # path compress version
+        if p != self.parent[p]:
+            # recursion to compress path
+            self.parent[p] = self.find(self.parent[p])
+        return self.parent[p]
 
     def is_connected(self, p, q):
         """
@@ -38,10 +49,20 @@ class UnionFind(object):
         q_root = self.find(q)
 
         if p_root == q_root:
+            # already connected, return
             return
 
         # point p's parent to q's parent
-        self.parent[p_root] = q_root
+        if self.rank[p_root] < self.rank[q_root]:
+            self.parent[p_root] = q_root
+        elif self.rank[p_root] > self.rank[q_root]:
+            self.parent[q_root] = p_root
+        else:  # p_root = q_root
+            self.parent[p_root] = q_root
+            # maintain rank only when the two sub tree have the same length
+            # p_root points to q_root,
+            # the rank of tree whose root is p should increase by 1
+            self.rank[p_root] += 1
 
 
 if __name__ == "__main__":
