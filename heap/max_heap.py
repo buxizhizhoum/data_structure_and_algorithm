@@ -9,6 +9,10 @@ for a element, if its index is i:
 
 for a node whose index is i:
     the parent's index is (i-1)//2
+
+when insert an element, append it to the end and then sift up
+when delete top element, swap top element with last element, remove,
+and then sift down the swap top element(which is the last element before delete)
 """
 
 
