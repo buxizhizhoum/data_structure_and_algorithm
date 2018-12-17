@@ -21,7 +21,7 @@ class ShortestPath(object):
 
     def bfs_dj(self, graph, start):
         """
-        迪杰斯塔拉算法
+        迪杰斯塔拉算法，既不是广度也不是深度，是广度的基础上，最小优先
         :param graph:
         :param start:
         :return:
@@ -33,7 +33,7 @@ class ShortestPath(object):
         while not queue.empty():
             # get the cheapest node from priority queue
             _, node = queue.get()
-            
+
             neighbors = graph[node]  # get node list connected to node
             for edge in neighbors:
                 _, node_id, node_w = edge.a, edge.b, edge.w
