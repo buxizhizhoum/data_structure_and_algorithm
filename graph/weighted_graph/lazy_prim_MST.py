@@ -30,6 +30,7 @@ class LazyPrim(object):
         for edge in neighbors:
             # extract node info from edge
             node_from, node_to, node_w = edge.node_from(), edge.node_to(), edge.weight()
+            # what to process is edge, so put edge info to queue
             pq.put((node_w, node_from, node_to))
 
         processed[start] = True
@@ -106,6 +107,7 @@ class LazyPrim(object):
 
             # if the other node of this edge is not processed
             if not processed.get(node_to):
+                # what to process is edge, so put edge info to queue
                 pq.put((node_w, node_from, node_to))
 
         processed[node] = True
