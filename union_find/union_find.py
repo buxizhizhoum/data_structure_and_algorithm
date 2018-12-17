@@ -13,6 +13,7 @@ class UnionFind(object):
         :param p:
         :return:
         """
+        # continue find parent element until find root
         while p != self.parent[p]:
             p = self.parent[p]
         return p
