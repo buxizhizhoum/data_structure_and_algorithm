@@ -12,21 +12,25 @@ from Queue import PriorityQueue
 
 
 class LazyPrim(object):
-    def lazy_prim(self, graph):
+    def __init__(self, graph):
+        self.graph = graph
+        # mst: edges list of MST [(node_from, node_to, node_w), ...]
+        self.mst = []  # list of edges in MST
+        self.mst_weight = None
+
+    def lazy_prim(self):
         """
         lazy prim to find MST, bfs based, but always minimum weight edge
         bfs + dfs?
-        :param graph:
         :return:
         """
         pq = PriorityQueue()
         processed = {}  # whether a node is processed or not
-        mst = []  # list of edges in MST
 
         start = 0  # node id of start
         # initialize priority queue,
         # put all edges connected with start node to priority queue
-        neighbors = graph.graph[start]
+        neighbors = self.graph.graph[start]
         for edge in neighbors:
             # extract node info from edge
             node_from, node_to, node_w = edge.node_from(), edge.node_to(), edge.weight()
@@ -49,10 +53,10 @@ class LazyPrim(object):
             if processed.get(cur_node_to) is True:
                 continue
             # if the other node is not processed, append edge info into pq
-            mst.append((cur_node_from, cur_node_to, cur_node_w))
+            self.mst.append((cur_node_from, cur_node_to, cur_node_w))
 
             # process edges that connected to cur node
-            neighbors = graph.graph[cur_node_to]
+            neighbors = self.graph.graph[cur_node_to]
             for edge in neighbors:
                 # extract node info from edge
                 node_from, node_to, node_w = edge.node_from(), edge.node_to(), edge.weight()
@@ -61,10 +65,10 @@ class LazyPrim(object):
                     pq.put((node_w, node_from, node_to))
 
             processed[cur_node_to] = True
-        # print(mst)
-        return self.mst_weight(mst)
 
-    def lazy_prim_simplified(self, graph):
+        self.mst_weight = self._calc_weight()
+
+    def lazy_prim_simplified(self):
         """
         wrap a method visit() to make it more compact
         :param graph:
@@ -74,7 +78,7 @@ class LazyPrim(object):
         mst = []
         pq = PriorityQueue()
         # start from 0
-        pq = self.visit(graph, 0, pq, processed)
+        pq = self.visit(0, pq, processed)
 
         while not pq.empty():
             cur_node_w, cur_node_from, cur_node_to = pq.get()
@@ -82,15 +86,13 @@ class LazyPrim(object):
             if processed.get(cur_node_to) is True:
                 continue
             # if not processed yet, it is one edge in MST
-            mst.append((cur_node_from, cur_node_to, cur_node_w))
+            self.mst.append((cur_node_from, cur_node_to, cur_node_w))
             # visit the other node in current minimum weight edge
-            pq = self.visit(graph, cur_node_to, pq, processed)
+            pq = self.visit(cur_node_to, pq, processed)
 
-        # return mst
-        # print(mst)
-        return self.mst_weight(mst)
+        self.mst_weight = self._calc_weight()
 
-    def visit(self, graph, node, pq, processed):
+    def visit(self, node, pq, processed):
         """
         visit a node and put all edges that connected to this edge
         and not be processed yet to pq
@@ -101,7 +103,7 @@ class LazyPrim(object):
         :return:
         """
         # get all edges that connected to node
-        conn_edges = graph.graph[node]
+        conn_edges = self.graph.graph[node]
         for edge in conn_edges:
             node_from, node_to, node_w = edge.node_from(), edge.node_to(), edge.weight()
 
@@ -114,15 +116,15 @@ class LazyPrim(object):
 
         return pq
 
-    def mst_weight(self, mst):
+    def _calc_weight(self):
         """
         get weight of mst
-        :param mst: edges list of MST [(node_from, node_to, node_w), ...]
+        mst: edges list of MST [(node_from, node_to, node_w), ...]
         :return:
         """
-        if not mst:
+        if not self.mst:
             return None
-        res = sum([item[2] for item in mst])
+        res = sum([item[2] for item in self.mst])
 
         return res
 
@@ -134,9 +136,16 @@ if __name__ == "__main__":
 
     graph = read_graph(filename)
 
-    lazy_prim = LazyPrim()
-    print(lazy_prim.lazy_prim(graph))
-    print(lazy_prim.lazy_prim_simplified(graph))
+    lazy_prim = LazyPrim(graph)
+
+    # lazy_prim.lazy_prim()
+    # print(lazy_prim.mst)
+    # print(lazy_prim.mst_weight)
+
+    lazy_prim.lazy_prim_simplified()
+
+    print(lazy_prim.mst)
+    print(lazy_prim.mst_weight)
 
 
 
