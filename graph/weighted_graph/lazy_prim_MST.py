@@ -71,11 +71,9 @@ class LazyPrim(object):
     def lazy_prim_simplified(self):
         """
         wrap a method visit() to make it more compact
-        :param graph:
         :return:
         """
         processed = {}
-        mst = []
         pq = PriorityQueue()
         # start from 0
         pq = self.visit(0, pq, processed)
