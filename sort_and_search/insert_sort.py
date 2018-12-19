@@ -71,7 +71,11 @@ class InsertSort(object):
 
     def sort_optimize(self, data):
         """
-        insert sort before initializing
+        insert sort optimized to reduce swap
+
+        swapping is replaced by move element that is larger than cur backward
+
+            swap needs 3 steps move backward only needs 1 step
         :param data: data to be sort
         :return:
         """
