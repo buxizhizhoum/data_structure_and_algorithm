@@ -1,6 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 import random
+random.seed(666)
 
 
 class RandomListGenerator(object):
