@@ -69,6 +69,31 @@ class InsertSort(object):
 
         return data
 
+    def sort_optimize(self, data):
+        """
+        insert sort before initializing
+        :param data: data to be sort
+        :return:
+        """
+        # start from the 2nd item in data
+        for i in range(1, len(data)):
+            # data[:i-1] is the left part that is already in order,
+            # the thought is to find a place in data[:i-1] to insert data[i]
+            tmp = data[i]
+            j = i
+            while j > 0:
+                # data[i] is to get the data from rest,
+                # find the place to insert data
+                if tmp < data[j-1]:  # data[i] less than element before it
+                    # move data[j] backward to make
+                    data[j] = data[j-1]
+                    j -= 1
+                else:
+                    break
+            data[j] = tmp
+
+        return data
+
 
 if __name__ == "__main__":
     from random_list_generater import RandomListGenerator
@@ -79,7 +104,8 @@ if __name__ == "__main__":
     print(test_data)
 
     insert_sort = InsertSort()
-    sorted_data = insert_sort.sort(test_data)
+    # sorted_data = insert_sort.sort(test_data)
+    sorted_data = insert_sort.sort_optimize(test_data)
 
     print("result")
     print(sorted_data)
