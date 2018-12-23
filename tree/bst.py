@@ -454,29 +454,6 @@ class BST(object):
 
 
 if __name__ == "__main__":
-    # import random
-    # random.seed(666)
-    #
-    # bst = BST()
-    #
-    # test_data = [random.randrange(1, 100) for _ in range(10)]
-    # for item in test_data:
-    #     bst.insert(item, item)
-    #
-    # print(bst.root)
-    #
-    # print(bst.search(test_data[0]))
-    # print(bst.contain(100))
-    #
-    # bst.in_order()
-    #
-    # print("minimum:", bst.minimum())
-    # print("maximum:", bst.maximum())
-    #
-    # bst.remove(46)
-    # print("--"*100)
-    # bst.in_order()
-
     import random
     random.seed(666)
 
@@ -495,8 +472,6 @@ if __name__ == "__main__":
 
     print("minimum:", bst.minimum())
     print("maximum:", bst.maximum())
-
-    # bst.remove(46)
 
     for item in test_data:
         print("--"*100)
