@@ -5,6 +5,10 @@ AVL tree implementation refer to imooc
 
 height should be updated when insert, remove, rotate
 
+after insert or remove node:
+    1. update height
+    2. maintain balance
+
 there are 4 conditions that a node is not balanced
     1. LL  solve by right rotate
     2. RR           left rotate
