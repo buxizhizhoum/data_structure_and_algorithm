@@ -297,9 +297,9 @@ class BST(object):
         if node is None:
             return
 
-        # if it is already the leftest node, it is minimum, return its value
+        # if it is already the leftest node, it is minimum, return it
         if node.left is None:
-            return node.value
+            return node
 
         return self._minimum(node.left)
 
@@ -389,8 +389,10 @@ class BST(object):
                 return None
             # if only have one sub tree, return the only sub tree
             elif node.left is None:
+                self.size -= 1
                 return node.right
             elif node.right is None:
+                self.size -= 1
                 return node.left
             # both of left and right is not None
             else:
@@ -398,10 +400,22 @@ class BST(object):
                 # replace node with minimum in node.right
                 # delete minimum node in node.right
                 # node = (del(node.right, min))
+                #
+                #      node                  t2
+                #      /   \                /  \
+                #    t1     r              t1   r
+                #          / \                   \
+                #         t2  t3                 t3
+                # t2 is successor of node
+                successor = self._minimum(node.right)
 
-                node.value = self._minimum(node.right)
-                node.right = self._remove_min(node.right)
-                return node
+                right_tree = self._remove_min(node.right)
+                successor.right = right_tree
+                successor.left = node.left
+
+                node.left = None
+                node.right = None
+                return successor
 
         if key < node.key:
             node.left = self._remove(node.left, key)
@@ -440,28 +454,55 @@ class BST(object):
 
 
 if __name__ == "__main__":
+    # import random
+    # random.seed(666)
+    #
+    # bst = BST()
+    #
+    # test_data = [random.randrange(1, 100) for _ in range(10)]
+    # for item in test_data:
+    #     bst.insert(item, item)
+    #
+    # print(bst.root)
+    #
+    # print(bst.search(test_data[0]))
+    # print(bst.contain(100))
+    #
+    # bst.in_order()
+    #
+    # print("minimum:", bst.minimum())
+    # print("maximum:", bst.maximum())
+    #
+    # bst.remove(46)
+    # print("--"*100)
+    # bst.in_order()
+
     import random
     random.seed(666)
 
     bst = BST()
 
-    test_data = [random.randrange(1, 100) for _ in range(10)]
+    test_data = list(set([random.randrange(1, 100) for _ in range(10)]))
     for item in test_data:
         bst.insert(item, item)
 
     print(bst.root)
 
     print(bst.search(test_data[0]))
-    print(bst.contain(100))
+    print("contain 100: %s" % bst.contain(100))
 
     bst.in_order()
 
     print("minimum:", bst.minimum())
     print("maximum:", bst.maximum())
 
-    bst.remove(46)
-    print("--"*100)
-    bst.in_order()
+    # bst.remove(46)
+
+    for item in test_data:
+        print("--"*100)
+        print("remove: %s" % item)
+        bst.remove(item)
+        bst.in_order()
 
 
 
