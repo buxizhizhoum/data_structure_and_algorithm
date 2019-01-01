@@ -3,6 +3,7 @@
 """
 w is an array stands for weight of products
 v is an array stands for value of products
+
 F(i, c) = max(F(i-1, c), v(i) + F(i-1, c-w(i)))
 """
 
@@ -48,7 +49,7 @@ class Knapsack(object):
 
     def dp(self, w, v, capacity):
         """
-        dynamic programming
+        dynamic programming, time complexity O(n*c) space complexity O(n*c)
         :param w:
         :param v:
         :param capacity:
@@ -80,6 +81,45 @@ class Knapsack(object):
 
         return memo[length-1][capacity]
 
+    def dp_1(self, w, v, capacity):
+        """
+        dynamic programming, optimize space complexity to O(capacity)
+        since the current line only relay info at last line,
+        only use 2 rows to cache result
+
+        it is possible to only use one line extra space, when change memo from
+        end to beginning
+        :param w:
+        :param v:
+        :param capacity:
+        :return:
+        """
+        length = len(w)
+        if length == 0 or len(v) != length or capacity <= 0:
+            return 0
+
+        # length * (capacity + 1)
+        memo = [[-1 for c in range(capacity + 1)] for _ in range(len(weights))]
+        # initialize first row
+        for j in range(capacity + 1):
+            # consider product 0
+            if weights[0] <= j:
+                # if product could be put into package
+                memo[0][j] = value[0]
+            else:
+                memo[0][j] = 0
+
+        for i in range(1, length):  # start from 2nd row
+            for j in range(capacity + 1):
+                # do not consider product i
+                memo[i%2][j] = memo[(i-1)%2][j]
+                # if capacity is enough, consider product i
+                if weights[i] <= j:
+                    # max in consider and not consider
+                    memo[i%2][j] = max(memo[i%2][j], value[i] + memo[(i-1)%2][j-weights[i]])
+
+        return memo[(length-1)%2][capacity]
+
 
 if __name__ == "__main__":
     weights = [2, 2, 4, 6, 3]
@@ -94,4 +134,5 @@ if __name__ == "__main__":
     print(Knapsack().memorization(weights, value, len(weights)-1, capacity, memorization))
 
     print(Knapsack().dp(weights, value, capacity))
+    print(Knapsack().dp_1(weights, value, capacity))
 
