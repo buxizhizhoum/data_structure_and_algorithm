@@ -77,10 +77,11 @@ class SegmentTree(object):
 
         # split segment tree whose node is index to two part
         # [l, mid] and [mid + 1, r]
+        # todo: Attention calculate mid of range that this node stands for
         mid = l + (r - l) // 2
         left_index = self.left_index(index)
         right_index = self.right_index(index)
-
+        # compare mid of range node stands for with query boundary
         if query_l >= mid + 1:
             # find only in right child tree
             return self._query(right_index, mid+1, r, query_l, query_r)
