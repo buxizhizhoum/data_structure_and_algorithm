@@ -105,11 +105,12 @@ class SegmentTree(object):
     def _update(self, tree_index, l, r, arr_index, value):
         """
         update the value at index in segment tree whose root is tree_index
-        :param tree_index:
-        :param l:
-        :param r:
-        :param index:
-        :param value:
+        [l, r] is the range that node specified by tree_index stands for
+        :param tree_index: the root of segment tree to update
+        :param l: left boundary of tree whose root is tree_index
+        :param r: right boundary  [l, r]
+        :param arr_index: index of element in array to change
+        :param value: new value
         :return:
         """
         if l == r:
