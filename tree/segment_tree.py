@@ -102,7 +102,7 @@ class SegmentTree(object):
         self.data[index] = value
         self._update(0, 0, len(self.data)-1, index, value)
 
-    def _update(self, tree_index, l, r, index, value):
+    def _update(self, tree_index, l, r, arr_index, value):
         """
         update the value at index in segment tree whose root is tree_index
         :param tree_index:
@@ -120,10 +120,10 @@ class SegmentTree(object):
         left_index = self.left_index(tree_index)
         right_index = self.right_index(tree_index)
 
-        if index >= mid + 1:
-            self._update(right_index, mid+1, r, index, value)
-        elif index <= mid:
-            self._update(left_index, l, mid, index, value)
+        if arr_index >= mid + 1:
+            self._update(right_index, mid+1, r, arr_index, value)
+        elif arr_index <= mid:
+            self._update(left_index, l, mid, arr_index, value)
 
         # todo: extend tree function
         self.tree[tree_index] = self.tree[left_index] + self.tree[right_index]
