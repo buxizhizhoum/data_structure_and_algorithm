@@ -23,7 +23,7 @@ class SegmentTree(object):
         :return:
         """
         if l == r:
-            self.tree[index] = self.data[l]
+            self.tree[index] = self.data[l]  # so is self.data[r]
             return
 
         left_index = self.left_index(index)
