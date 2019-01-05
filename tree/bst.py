@@ -205,6 +205,12 @@ class BST(object):
         """
         return self._search(self.root, key)
 
+    def update(self, key, value):
+        if self.contain(key):
+            self.insert(key, value)
+        else:
+            raise ValueError("key does not exist")
+
     def _pre_order(self, node):
         if node is None:
             return
