@@ -54,11 +54,14 @@ class SegmentTree(object):
         return 2 * index + 2
 
     def query(self, query_l, query_r):
-        if query_l < 0 or query_l >= len(self.data) \
-                or query_r < 0 or query_r >= len(self.data) \
-                or query_l > query_r:
-            raise IndexError("Illegal index range")
-        return self._query(0, 0, len(self.data)-1, query_l, query_r)
+        # if query_l < 0 or query_l >= len(self.data) \
+        #         or query_r < 0 or query_r >= len(self.data) \
+        #         or query_l > query_r:
+        # return self._query(0, 0, len(self.data) - 1, query_l, query_r)
+
+        if 0 <= query_l < query_r < len(self.data):
+            return self._query(0, 0, len(self.data) - 1, query_l, query_r)
+        raise IndexError("Illegal index range")
 
     def _query(self, index, l, r, query_l, query_r):
         """
