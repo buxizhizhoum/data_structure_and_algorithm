@@ -101,10 +101,15 @@ class SegmentTree(object):
         return left_res + right_res
 
     def update(self, index, value):
-        if index < 0 or index >= len(self.data):
+        # if index < 0 or index >= len(self.data):
+        #     raise IndexError("Illegal index parameter")
+        # self.data[index] = value
+        # self._update(0, 0, len(self.data)-1, index, value)
+        if 0 <= index < len(self.data):
+            self.data[index] = value
+            self._update(0, 0, len(self.data)-1, index, value)
+        else:
             raise IndexError("Illegal index parameter")
-        self.data[index] = value
-        self._update(0, 0, len(self.data)-1, index, value)
 
     def _update(self, tree_index, l, r, arr_index, value):
         """
